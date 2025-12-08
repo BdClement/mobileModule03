@@ -15,11 +15,12 @@ export default function Layout({ children }) {
     });
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#d6f0f7ff' }}>
+    // <SafeAreaView style={{ flex: 1, backgroundColor: '#d6f0f7ff' }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" />
-      <ScrollView style={styles.container}   contentContainerStyle={{flexGrow: 1, alignItems: 'center', justifyContent: 'center'}}>
-        {children}
-      </ScrollView>
+        <ScrollView style={styles.container}   contentContainerStyle={{flexGrow: 1, alignItems: 'center', justifyContent: 'center'}}>
+            {children}
+        </ScrollView>
     </SafeAreaView>
   );
 }
