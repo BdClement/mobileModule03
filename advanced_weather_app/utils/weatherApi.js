@@ -1,3 +1,8 @@
+// import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 export async function getWeather({ latitude, longitude, type }) {
   let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}`;
 
@@ -35,6 +40,17 @@ export function getWeatherDescription(code) {
   if (code === 95) return "Thunderstorm (slight or moderate)";
   if ([96, 99].includes(code)) return "Thunderstorm with hail";
   return "Unknown weather code";
+}
+
+export function getWeatherIcon(code, size = 40, color = "white") {
+  if (code === 0) return <Feather name="sun" size={size} color={color} />;
+  if ([1, 2, 3].includes(code)) return <FontAwesome5 name="cloud-sun" size={size} color={color} />
+  if ([45, 48].includes(code)) return <MaterialCommunityIcons name="weather-fog" size={size} color={color} />
+  if ([51, 53, 55, 56, 57].includes(code)) return <Feather name="cloud-drizzle" size={size} color={color} />;
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return <Feather name="cloud-rain" size={size} color={color} />;
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return <Feather name="cloud-snow" size={size} color={color} />;
+  if ([95, 96, 99].includes(code)) return <Feather name="cloud-lightning" size={size} color={color} />;
+  return <Feather name="help-circle" size={size} color={color} />;
 }
 
 export function extractCity(address) {

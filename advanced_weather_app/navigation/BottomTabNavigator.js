@@ -25,7 +25,7 @@ export default function TabNavigator() {
         tabBarLabelStyle: { fontSize: width > height ? moderateScale(6) : moderateScale(10) },
         tabBarItemStyle: { justifyContent: 'center', alignItems: 'center' },
         tabBarIndicatorStyle: { display: 'None' },
-        tabBarActiveTintColor: '#dbd815ff',
+        tabBarActiveTintColor: '#fc8618ff',
         tabBarInactiveTintColor: '#aaa',
         // contentStyle: { backgroundColor: 'transparent' }
       }}
@@ -35,7 +35,7 @@ export default function TabNavigator() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <AntDesign name="aim" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#079c45ff' : '#aaa'} />
+            <AntDesign name="aim" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#fc8618ff' : '#aaa'} />
           ),
         }}
       />
@@ -44,7 +44,7 @@ export default function TabNavigator() {
         component={Today}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <MaterialIcons name="today" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#079c45ff' : '#aaa'} />
+            <MaterialIcons name="today" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#fc8618ff' : '#aaa'} />
           ),
         }}
       />
@@ -53,7 +53,7 @@ export default function TabNavigator() {
         component={Weekly}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <MaterialCommunityIcons name="calendar-week" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#079c45ff' : '#aaa'} />
+            <MaterialCommunityIcons name="calendar-week" size={width > height ? moderateScale(8) : moderateScale(18)} color={focused ? '#fc8618ff' : '#aaa'} />
           ),
         }}
       />

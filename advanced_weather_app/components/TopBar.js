@@ -172,7 +172,9 @@ export default function TopBar() {
               }}
               style={styles.suggestionItem}
             >
-              <Text style={{color:'#d6f0f7ff'}}><strong style={{color: '#17e4ffff'}}>{item.name}</strong>, {item.admin1}, {item.country}</Text>
+              <Text style={{color:'#d6f0f7ff'}}>
+                <Text style={{fontWeight: 'bold', color: '#17e4ffff'}}>{item.name}</Text>, {item.admin1}, {item.country}
+              </Text>
             </TouchableOpacity>
           )}
           />
