@@ -21,7 +21,7 @@ export default function TabNavigator() {
       screenOptions={{
         swipeEnabled: true, 
         tabBarShowLabel: true,
-        tabBarStyle: { backgroundColor: '#020202ff', height: width > height ? verticalScale(120) : verticalScale(80) },
+        tabBarStyle: { backgroundColor: "rgba(0, 0, 0, 0.5)", height: width > height ? verticalScale(120) : verticalScale(80)},
         tabBarLabelStyle: { fontSize: width > height ? moderateScale(6) : moderateScale(10) },
         tabBarItemStyle: { justifyContent: 'center', alignItems: 'center' },
         tabBarIndicatorStyle: { display: 'None' },

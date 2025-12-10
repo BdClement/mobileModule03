@@ -11,29 +11,29 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 export default function HomeScreen() {
   const { height, width, moderateScale } = useResponsiveContext();
     const { errorMsg, selectedLocation } = useLocation();
-    const [weatherData, setWeatherData] = useState(null);
-    const [apiError, setApiError] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [apiError, setApiError] = useState(null);
 
     
-    useEffect(() => {
-      if (!selectedLocation) return;
-      
-      (async () => {
-        const data = await getWeather({
-          latitude: selectedLocation.latitude,
-          longitude: selectedLocation.longitude,
-          type: "current",
-        });
-        if (!data) setApiError("The service connection is lost. Please check your Internet connection or try again later.");
-        else {
-          setApiError(null);
-          setWeatherData(data);
-          console.log("weatherData == ", JSON.stringify(data, null, 2));
-        }
-      })();
-    }, [selectedLocation])
+  useEffect(() => {
+    if (!selectedLocation) return;
     
-    const isLandscape = width > height
+    (async () => {
+      const data = await getWeather({
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        type: "current",
+      });
+      if (!data) setApiError("The service connection is lost. Please check your Internet connection or try again later.");
+      else {
+        setApiError(null);
+        setWeatherData(data);
+        console.log("weatherData == ", JSON.stringify(data, null, 2));
+      }
+    })();
+  }, [selectedLocation])
+    
+  const isLandscape = width > height
 
   return (
     <Layout>
@@ -46,19 +46,19 @@ export default function HomeScreen() {
           {/* <Text style={{ fontSize: isLandscape ? moderateScale(15) : moderateScale(20)}}>Currently</Text> */}
           {selectedLocation && 
           <View style={{alignItems: 'center'}}>
-            <Text style={{ fontSize: isLandscape ? moderateScale(25) : moderateScale(30), color:'#15d9f3ff'}}>{selectedLocation.name}</Text>
-            <Text style={{ fontSize: isLandscape ? moderateScale(10) : moderateScale(14)}}>{selectedLocation.admin1}, {selectedLocation.country}</Text>
+            <Text style={{ fontSize: isLandscape ? moderateScale(20) : moderateScale(40), color:'#15d9f3ff'}}>{selectedLocation.name}</Text>
+            <Text style={{ fontSize: isLandscape ? moderateScale(10) : moderateScale(25), color: '#fceee2ff'}}>{selectedLocation.admin1}, {selectedLocation.country}</Text>
           </View>
           }
           {weatherData && 
             <>
-              <Text style={{ color: '#fc8618ff', fontSize: isLandscape ? moderateScale(25) : moderateScale(30)}}>{weatherData.current_weather.temperature}°C</Text>
+              <Text style={{ color: '#fc8618ff', fontSize: isLandscape ? moderateScale(25) : moderateScale(60)}}>{weatherData.current_weather.temperature}°C</Text>
               <View style={{alignItems: 'center'}}>
-                {getWeatherIcon(weatherData.current_weather.weathercode, isLandscape ? moderateScale(25) : moderateScale(30), '#15d9f3ff')}
-                <Text style={{ fontSize: isLandscape ? moderateScale(6) : moderateScale(10), padding: moderateScale(8)}}>{getWeatherDescription(weatherData.current_weather.weathercode)}</Text>
+                {getWeatherIcon(weatherData.current_weather.weathercode, isLandscape ? moderateScale(20) : moderateScale(35), '#15d9f3ff')}
+                <Text style={{ fontSize: isLandscape ? moderateScale(10) : moderateScale(25), padding: isLandscape ? moderateScale(4) : moderateScale(8), color: '#fceee2ff'}}>{getWeatherDescription(weatherData.current_weather.weathercode)}</Text>
               </View>
-              <Text style={{ fontSize: isLandscape ? moderateScale(6) : moderateScale(10)}}>
-                <MaterialCommunityIcons name="weather-windy" size={moderateScale(10)} color='#17e4ffff' />
+              <Text style={{ fontSize: isLandscape ? moderateScale(10) : moderateScale(25), color: '#fceee2ff'}}>
+                <MaterialCommunityIcons name="weather-windy" size={isLandscape ? moderateScale(10) : moderateScale(25)} color='#17e4ffff' />
                   {weatherData.current_weather.windspeed}km/h
               </Text>
             </>

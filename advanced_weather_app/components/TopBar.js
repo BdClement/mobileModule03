@@ -15,7 +15,7 @@ export default function TopBar() {
   const { location, setLocation, setErrorMsg , selectedLocation, setSelectedLocation} = useLocation();
   const [ suggestions, setSuggestions ] = useState([]);
 
-  // Geo coding renvoie une liste pour 2 caracteres
+  // Geo coding renvoie une liste QUE pour 2 caracteres
   const searchCitiesByName = async (query) => {
     if (!query) return setSuggestions([]);
     try {
@@ -75,7 +75,7 @@ export default function TopBar() {
     containerTopBar: {
       height: width > height ? verticalScale(120) : verticalScale(80),
       flexDirection: 'row',
-      backgroundColor: '#000000ff',
+      backgroundColor: "#000000ff",//rgba(0, 0, 0)
       alignItems: 'center',
       justifyContent: 'center',
       gap: moderateScale(10),
@@ -101,7 +101,8 @@ export default function TopBar() {
       right: 0,
       zIndex: 1000,
       maxHeight: width > height ? verticalScale(250) : verticalScale(350),
-      top: width > height ? verticalScale(120) + insets.top : verticalScale(80) + insets.top
+      // top: width > height ? verticalScale(120) + insets.top : verticalScale(80) + insets.top
+      top: width > height ? verticalScale(120) : verticalScale(80)
     },
    suggestionItem: {
       padding: moderateScale(14),
