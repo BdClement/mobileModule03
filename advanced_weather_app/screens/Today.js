@@ -10,49 +10,49 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function Today() {
   const { height, width, moderateScale } = useResponsiveContext();
-    const { errorMsg , selectedLocation} = useLocation();
-    const [weatherData, setWeatherData] = useState(null);
-    const [apiError, setApiError] = useState(null);
+  const { errorMsg , selectedLocation} = useLocation();
+  const [weatherData, setWeatherData] = useState(null);
+  const [apiError, setApiError] = useState(null);
+  const isLandscape = width > height
 
 
-    useEffect(() => {
-      if (!selectedLocation) return;
+  useEffect(() => {
+    if (!selectedLocation) return;
 
-      (async () => {
-        const data = await getWeather({
-          latitude: selectedLocation.latitude,
-          longitude: selectedLocation.longitude,
-          type: "today",        
-        });
-        if (!data) setApiError("The service connection is lost. Please check your Internet connection or try again later.");
-        else {
-          setApiError(null);
-          setWeatherData(data);
-          console.log("weatherData == ", JSON.stringify(data, null, 2));
-        }
-      })();
-    }, [selectedLocation]);
-
-    const isLandscape = width > height
-    let temperatureData = {}
-    if (weatherData) {
-      const labelsHours = weatherData.hourly.time.map(timestamp => {
-        const date = new Date(timestamp);
-        return date.toLocaleTimeString("sv-SE", {hour: "2-digit", minute: "2-digit"})
-      })
-      temperatureData = {
-        labels: labelsHours,
-        datasets: [
-          {
-            data: weatherData.hourly.temperature_2m,
-            strokeWidth: 1, //Epaisseur de la ligne
-            // color: '#fc8618ff'
-            color: () => 'black', 
-          },
-        ],
-        // legend: ["Today temperatures"],
+    (async () => {
+      const data = await getWeather({
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        type: "today",        
+      });
+      if (!data) setApiError("The service connection is lost. Please check your Internet connection or try again later.");
+      else {
+        setApiError(null);
+        setWeatherData(data);
+        console.log("weatherData == ", JSON.stringify(data, null, 2));
       }
+    })();
+  }, [selectedLocation]);
+
+  let temperatureData = {}
+  if (weatherData) {
+    const labelsHours = weatherData.hourly.time.map(timestamp => {
+      const date = new Date(timestamp);
+      return date.toLocaleTimeString("sv-SE", {hour: "2-digit", minute: "2-digit"})
+    })
+    temperatureData = {
+      labels: labelsHours,
+      datasets: [
+        {
+          data: weatherData.hourly.temperature_2m,
+          strokeWidth: 1, //Epaisseur de la ligne
+          // color: '#fc8618ff'
+          color: () => 'black', 
+        },
+      ],
+      // legend: ["Today temperatures"],
     }
+  }
 
 
   return (
@@ -78,16 +78,16 @@ export default function Today() {
                   color: '#fceee2ff',
                   backgroundColor: 'rgba(23, 228, 255, 0.5)',
                   padding: moderateScale(8),
-                  borderTopLeftRadius: 16,
-                  borderTopRightRadius: 16,
+                  borderTopLeftRadius: moderateScale(16),
+                  borderTopRightRadius: moderateScale(16),
                   }}>Today temperatures</Text>
                 <LineChart
                   data={temperatureData}
-                  width= {width * 0.95}
-                  height={height / 3}
+                  width= {isLandscape ? width * 0.85 : width * 0.95}
+                  height={isLandscape ? height * 0.5 : height * 0.3}
                   yAxisSuffix='°C'
-                  xLabelsOffset={moderateScale(8)}
-                  yLabelsOffset={moderateScale(8)}
+                  xLabelsOffset={isLandscape? moderateScale(2) : moderateScale(8)}
+                  yLabelsOffset={isLandscape? moderateScale(2) : moderateScale(8)}
                   formatXLabel={(value, index) => {
                     const hour = parseInt(value.split(':')[0], 10);
                     if (hour % 4 === 0) {
@@ -103,20 +103,19 @@ export default function Today() {
                     decimalPlaces: 1,
                     color: () => 'white',
                     propsForDots: {
-                      r: "4",
-                      strokeWidth: "4",
+                      r: isLandscape ? "2" : "4",
+                      strokeWidth: isLandscape ? "2" : "4",
                       // stroke: "#ff0000ff",
                       fill: '#fc8618ff',
                     },
                     propsForLabels: {
-                      fontSize: moderateScale(10),
-                      padding: moderateScale(2)
+                      fontSize: isLandscape ? moderateScale(5) : moderateScale(10),
+                      padding: isLandscape ? moderateScale(1) : moderateScale(2)
                     },
                   }}
                 />
               </View>
             }
-            
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={true}
@@ -133,7 +132,7 @@ export default function Today() {
                     const windIcon = <MaterialCommunityIcons name="weather-windy" size={isLandscape ? moderateScale(6) : moderateScale(10)} color='#fceee2ff' />
                     const windspeed = weatherData.hourly.windspeed_10m[i];
                     return (
-                      <View key={i} style={{marginLeft: moderateScale(4), marginRight: moderateScale(4), alignItems: 'center', justifyContent: 'center'}}>
+                      <View key={i} style={{padding: isLandscape? moderateScale(4) : moderateScale(2), marginLeft: moderateScale(4), marginRight: moderateScale(4), alignItems: 'center', justifyContent: 'center'}}>
                         <View style={{alignItems: 'center', gap: moderateScale(2)}}>
                           <Text style={{ color: '#fceee2ff'}}>{time}</Text>
                           <Text>{weather}</Text>
@@ -152,6 +151,6 @@ export default function Today() {
   );
 }
 
-// gerer le landscape
+// Le web build differemment les composants (Ex ScrollView => overflow)
 
 

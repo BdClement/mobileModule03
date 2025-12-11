@@ -28,7 +28,7 @@ export default function App() {
             <SafeAreaView style={ styles.container }>
               <View style={{flex:1}}>
                 <Image
-                  source={require('./assets/ciel-nuit.jpg')}
+                  source={require('./assets/ciel-nuit.webp')}
                   contentFit='cover'
                   style={StyleSheet.absoluteFillObject}
                 />
